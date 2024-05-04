@@ -77,6 +77,15 @@ namespace MapEditorReborn.API.Extensions
                         break;
                     }
 
+                case GeneratorObject generator:
+                {
+                    message = message.Replace("{objectType}", "Generator");
+
+                   
+                    break;
+                }
+                
+
                 case PlayerSpawnPointObject playerSpawnPoint:
                     {
                         message = message.Replace("{objectType}", "PlayerSpawnPoint");
@@ -228,6 +237,7 @@ namespace MapEditorReborn.API.Extensions
                         Indicator.SpawnObjectIndicator(lightSource, indicator);
                         break;
                     }
+                
 
                 case TeleportObject teleport:
                     {

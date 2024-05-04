@@ -186,6 +186,11 @@ namespace MapEditorReborn.API.Features
                 SpawnedObjects.Add(ObjectSpawner.SpawnLightSource(lightSourceObject));
             }
 
+            foreach (SerializableGenerator generatorObject in map.Generators )
+            {
+                
+            }
+            
             foreach (SerializableTeleport teleportObject in map.Teleports)
             {
                 Log.Debug($"Trying to spawn a teleporter at {teleportObject.Position}...");
@@ -277,6 +282,17 @@ namespace MapEditorReborn.API.Features
 
                                 break;
                             }
+                        case GeneratorObject generator:
+                        {
+                            generator.Base.Position = generator.RelativePosition;
+                            generator.Base.Rotation = generator.RelativeRotation;
+                            generator.Base.Scale = generator.Scale;
+                            generator.Base.RoomType = generator.RoomType;
+
+                            map.Generators.Add(generator.Base);
+                            break;
+                        }
+                            
 
                         case PlayerSpawnPointObject playerSpawnPoint:
                             {
@@ -473,6 +489,7 @@ namespace MapEditorReborn.API.Features
                 outputMap.RoomLights.AddRange(map.RoomLights);
                 outputMap.Teleports.AddRange(map.Teleports);
                 outputMap.Lockers.AddRange(map.Lockers);
+                outputMap.Generators.AddRange(map.Generators);
                 outputMap.Schematics.AddRange(map.Schematics);
             }
 

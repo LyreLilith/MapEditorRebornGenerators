@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Numerics;
+
 namespace MapEditorReborn.API.Features
 {
     using System;
@@ -67,6 +69,10 @@ namespace MapEditorReborn.API.Features
                         return SpawnSchematic(schematicObject, forcedPosition, forcedRotation, forcedScale, data, isStatic) as T;
                     }
 
+                case nameof(GeneratorObject):
+                    return SpawnGenerator(args[0] as SerializableGenerator, forcedPosition, forcedRotation,
+                        forcedScale) as T;
+                
                 case nameof(LockerObject):
                     return SpawnLocker(args[0] as LockerSerializable, forcedPosition, forcedRotation, forcedScale) as T;
 
@@ -123,6 +129,18 @@ namespace MapEditorReborn.API.Features
             return gameObject.AddComponent<DoorObject>().Init(door);
         }
 
+        public static GeneratorObject SpawnGenerator(SerializableGenerator generator, Vector3? forcedPosition = null, Quaternion? forcedRotation = null, Vector3? forcedScale=null)
+        {
+            Room room = GetRandomRoom(generator.RoomType);
+            GameObject gameObject = Object.Instantiate(ObjectType.Generator.GetObjectByMode(),
+                forcedPosition ?? GetRelativePosition(generator.Position, room),
+                forcedRotation ?? GetRelativeRotation(generator.Rotation, room));
+            
+            gameObject.transform.localScale = forcedScale ?? generator.Scale;
+            gameObject.AddComponent<ObjectRotationComponent>().Init(generator.Rotation);
+            return gameObject.AddComponent<GeneratorObject>().Init(generator);
+        }
+        
         /// <summary>
         /// Spawns a workstation.
         /// </summary>
@@ -367,6 +385,7 @@ namespace MapEditorReborn.API.Features
             {
                 DoorObject door => SpawnDoor(new DoorSerializable().CopyProperties(door.Base), position, rotation, scale),
                 WorkstationObject workStation => SpawnWorkstation(new WorkstationSerializable().CopyProperties(workStation.Base), position, rotation, scale),
+                GeneratorObject generatorObject => SpawnGenerator(new SerializableGenerator().CopyProperties(generatorObject.Base),position,rotation,scale),
                 ItemSpawnPointObject itemSpawnPoint => SpawnItemSpawnPoint(new ItemSpawnPointSerializable().CopyProperties(itemSpawnPoint.Base), position, rotation, scale),
                 PlayerSpawnPointObject playerSpawnPoint => SpawnPlayerSpawnPoint(new PlayerSpawnPointSerializable().CopyProperties(playerSpawnPoint.Base), position),
                 RagdollSpawnPointObject ragdollSpawnPoint => SpawnRagdollSpawnPoint(new RagdollSpawnPointSerializable().CopyProperties(ragdollSpawnPoint.Base), position, rotation),

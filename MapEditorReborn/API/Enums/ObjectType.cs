@@ -98,5 +98,9 @@ namespace MapEditorReborn.API.Enums
         MedkitLocker = 19,
 
         AdrenalineLocker = 20,
+        /// <summary>
+        /// Represents 079 Generators
+        /// </summary>
+        Generator = 21,
     }
 }

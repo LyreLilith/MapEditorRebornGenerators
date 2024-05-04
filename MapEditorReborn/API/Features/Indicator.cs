@@ -257,7 +257,8 @@ namespace MapEditorReborn.API.Features
             SpawnedObjects.Add(pickupGameObject.AddComponent<IndicatorObject>().Init(lightSource));
             NetworkServer.Spawn(pickupGameObject);
         }
-
+        
+        
         /// <summary>
         /// Spawns a <see cref="IndicatorObject"/> given a specified <see cref="TeleportObject"/>.
         /// </summary>

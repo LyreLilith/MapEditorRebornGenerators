@@ -113,13 +113,15 @@ namespace MapEditorReborn.API
         {
             Dictionary<ObjectType, GameObject> objectList = new(21);
             DoorSpawnpoint[] doorList = Object.FindObjectsOfType<DoorSpawnpoint>();
-
+            
             objectList.Add(ObjectType.LczDoor, doorList.First(x => x.TargetPrefab.name.Contains("LCZ")).TargetPrefab.gameObject);
             objectList.Add(ObjectType.HczDoor, doorList.First(x => x.TargetPrefab.name.Contains("HCZ")).TargetPrefab.gameObject);
             objectList.Add(ObjectType.EzDoor, doorList.First(x => x.TargetPrefab.name.Contains("EZ")).TargetPrefab.gameObject);
 
             objectList.Add(ObjectType.WorkStation, NetworkClient.prefabs.Values.First(x => x.name.Contains("Work Station")));
 
+            objectList.Add(ObjectType.Generator, NetworkClient.prefabs.Values.FirstOrDefault(x => x.name.Contains("Generator")));
+            
             objectList.Add(ObjectType.ItemSpawnPoint, new GameObject("ItemSpawnPointObject"));
             objectList.Add(ObjectType.PlayerSpawnPoint, new GameObject("PlayerSpawnPointObject"));
             objectList.Add(ObjectType.RagdollSpawnPoint, new GameObject("RagdollSpawnPointObject"));

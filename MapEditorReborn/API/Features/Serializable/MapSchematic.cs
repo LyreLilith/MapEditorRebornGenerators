@@ -66,6 +66,8 @@ namespace MapEditorReborn.API.Features.Serializable
         /// </summary>
         public VanillaTeslaProperties VanillaTeslaProperties { get; private set; } = new();
 
+        public List<SerializableGenerator> Generators { get; private set; } = new();
+        
         /// <summary>
         /// Gets the list of <see cref="DoorSerializable"/>.
         /// </summary>

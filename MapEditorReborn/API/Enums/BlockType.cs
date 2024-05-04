@@ -51,5 +51,10 @@ namespace MapEditorReborn.API.Enums
         /// Represents a locker.
         /// </summary>
         Locker = 7,
+        
+        /// <summary>
+        /// Represent a generator
+        /// </summary>
+        Generator= 8,
     }
 }
